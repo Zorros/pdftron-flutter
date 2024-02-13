@@ -57,6 +57,9 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
                selector:@selector(undoManagerSentNotification:)
                    name:PTUndoRedoManagerDidUndoNotification
                  object:undoRedoManager];
+
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.pdfViewCtrl addGestureRecognizer:tapRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -212,6 +215,21 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
 - (void)hideViewModeItems:(NSArray<NSString *> *)viewModeItems
 {
     [self setViewModeItemVisibility:viewModeItems hidden:YES];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+    CGPoint touchLocation = [sender locationInView:self.pdfViewCtrl];
+
+    int pageNumber = [self.pdfViewCtrl GetPageNumberFromScreenPt:touchLocation.x y:touchLocation.y];
+
+    PTPDFPoint *point = [[PTPDFPoint alloc] initWithPx:touchLocation.x py:touchLocation.y];
+
+    PTPDFPoint *pagePoint = [self.pdfViewCtrl ConvScreenPtToPagePt:point page_num:pageNumber];
+
+    CGPoint pointResponse = CGPointMake(pagePoint.x, pagePoint.y);
+
+    [PdftronFlutterPlugin emitTouchEventWithPoint:pointResponse pageNumber:pageNumber];
 }
 
 - (void)setViewModeItemVisibility:(NSArray *)stringsArray hidden:(BOOL)value

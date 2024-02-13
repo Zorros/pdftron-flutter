@@ -13,6 +13,9 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.plugin.platform.PlatformViewRegistry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * PdftronFlutterPlugin
  */
@@ -23,8 +26,17 @@ public class PdftronFlutterPlugin implements FlutterPlugin, ActivityAware {
     private PlatformViewRegistry mRegistry;
     private BinaryMessenger mMessenger;
     private MethodChannel mMethodChannel;
+    public static MethodChannel flutterMethodChannel;
 
     public PdftronFlutterPlugin() { }
+
+    public static void emitTouchEventWithPoint(double x, double y, int pageNumber) {
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put("x", x);
+        eventData.put("y", y);
+        eventData.put("pageNumber", pageNumber);
+        flutterMethodChannel.invokeMethod("onTouch", eventData);
+    }
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
@@ -32,6 +44,7 @@ public class PdftronFlutterPlugin implements FlutterPlugin, ActivityAware {
         mRegistry = binding.getPlatformViewRegistry();
         mMethodChannel = new MethodChannel(mMessenger, "pdftron_flutter");
         mMethodChannel.setMethodCallHandler(new PluginMethodCallHandler(mMessenger, binding.getApplicationContext()));
+        flutterMethodChannel = new MethodChannel(mMessenger, "pdftron_flutter");
     }
 
     @Override

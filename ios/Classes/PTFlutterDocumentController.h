@@ -117,6 +117,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)hideViewModeItems:(NSArray<NSString *> *)viewModeItems;
 
+- (void)handleTap:(UITapGestureRecognizer *)sender;
+
 @end
 
 @interface FLThumbnailsViewController : PTThumbnailsViewController

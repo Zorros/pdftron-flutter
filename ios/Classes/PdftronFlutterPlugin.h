@@ -525,6 +525,7 @@ typedef enum
 + (PdftronFlutterPlugin *)registerWithFrame:(CGRect)frame viewIdentifier:(int64_t)viewId messenger:(NSObject<FlutterBinaryMessenger> *)messenger;
 
 - (void)documentController:(PTDocumentController *)documentController bookmarksDidChange:(NSString *)bookmarkJson;
++ (void)emitTouchEventWithPoint:(CGPoint)point pageNumber:(int)pageNumber;
 - (void)documentController:(PTDocumentController *)documentController annotationsAsXFDFCommand:(NSString *)xfdfCommand;
 - (void)documentController:(PTDocumentController *)documentController documentLoadedFromFilePath:(NSString *)filePath;
 - (void)documentController:(PTDocumentController *)documentController documentError:(nullable NSError *)error;

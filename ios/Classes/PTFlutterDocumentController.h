@@ -104,6 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, getter=isReadOnly) BOOL hideScrollbars;
 
+@property (nonatomic, assign) BOOL tapCoordinatesEnabled;
+
 // Hygen Generated Configs
 @property (nonatomic, assign) int maxSignatureCount;
 
@@ -114,6 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)shouldSetNavigationBarHidden:(BOOL)navigationBarHidden animated:(BOOL)animated;
 - (BOOL)shouldSetToolbarHidden:(BOOL)toolbarHidden animated:(BOOL)animated;
+
+- (void)setTapCoordinatesEnabled:(BOOL)coordinatesEnabled;
 
 - (void)hideViewModeItems:(NSArray<NSString *> *)viewModeItems;
 

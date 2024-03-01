@@ -86,6 +86,7 @@ class Config {
   var _hideScrollbars;
   var _quickBookmarkCreation;
   var _fullScreenModeEnabled;
+  var _tapCoordinatesEnabled;
 
   // Hygen Generated Configs (1)
   var _maxSignatureCount;
@@ -595,6 +596,10 @@ class Config {
   /// Defaults to false. Android only.
   set fullScreenModeEnabled(bool value) => _fullScreenModeEnabled = value;
 
+  /// Enable the tap gesture recognizer to return the coordinates of a tap in a pdf
+  /// only ios
+  set tapCoordinatesEnabled(bool value) => _tapCoordinatesEnabled = value;
+
   // Hygen Generated Configs (2)
   /// The maximum number of saved signatures that can be created for a document.
   ///
@@ -691,9 +696,9 @@ class Config {
 
         // Hygen Generated Configs (3)
         _maxSignatureCount = json['maxSignatureCount'],
+        _fullScreenModeEnabled = json['fullScreenModeEnabled'],
+        _tapCoordinatesEnabled = json['tapCoordinatesEnabled'];
 
-        _fullScreenModeEnabled = json['fullScreenModeEnabled'];
-        
   Map<String, dynamic> toJson() => {
         'disabledElements': _disabledElements,
         'disabledTools': _disabledTools,
@@ -777,6 +782,7 @@ class Config {
         'hideScrollbars': _hideScrollbars,
         'quickBookmarkCreation': _quickBookmarkCreation,
         'fullScreenModeEnabled': _fullScreenModeEnabled,
+        'tapCoordinatesEnabled': _tapCoordinatesEnabled,
 
         // Hygen Generated Configs (4)
         'maxSignatureCount': _maxSignatureCount,

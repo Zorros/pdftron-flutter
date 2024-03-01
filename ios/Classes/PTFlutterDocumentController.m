@@ -57,13 +57,14 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
                selector:@selector(undoManagerSentNotification:)
                    name:PTUndoRedoManagerDidUndoNotification
                  object:undoRedoManager];
-
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.pdfViewCtrl addGestureRecognizer:tapRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (_tapCoordinatesEnabled) {
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self.pdfViewCtrl addGestureRecognizer:tapRecognizer];
+    }
     [super viewWillAppear:animated];
 
     // bottomToolBar / thumbnailSlider enabling
@@ -1873,6 +1874,11 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
 - (void)setUserName:(NSString *)userName
 {
     _userName = [userName copy];
+}
+
+- (void)setTapCoordinatesEnabled:(BOOL)coordinatesEnabled
+{
+    _tapCoordinatesEnabled = coordinatesEnabled;
 }
 
 #pragma mark - Other

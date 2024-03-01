@@ -844,6 +844,12 @@
                         documentController.toolManager.signatureAnnotationOptions.maxSignatureCount = [maxSignatureCount intValue];
                     }
                 }
+                 else if ([key isEqualToString:PTTapCoordinatesEnabledKey]) {
+                    NSNumber* tapCoordinatesEnabled = [PdftronFlutterPlugin getConfigValue:configPairs configKey:PTTapCoordinatesEnabledKey class:[NSNumber class] error:&error];
+                    if (!error && tapCoordinatesEnabled) {
+                        [documentController setTapCoordinatesEnabled:[tapCoordinatesEnabled boolValue]];
+                    }
+                }
                 else
                 {
                     NSLog(@"Unknown JSON key in config: %@.", key);
